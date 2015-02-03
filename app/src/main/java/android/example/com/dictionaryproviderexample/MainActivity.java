@@ -20,9 +20,9 @@ import android.database.Cursor;
 import android.os.Bundle;
 import android.provider.UserDictionary;
 import android.provider.UserDictionary.Words;
+import android.support.v4.widget.SimpleCursorAdapter;
 import android.support.v7.app.ActionBarActivity;
 import android.widget.ListView;
-import android.support.v4.widget.SimpleCursorAdapter;
 
 /**
  * This is the central activity for the Provider Dictionary Example App. The purpose of this app is
@@ -46,9 +46,16 @@ public class MainActivity extends ActionBarActivity {
 
         // -- YOUR CODE BELOW HERE -- //
 
+        // For the cursor adapter, specify which columns go into which views
+        String[] fromColumns = {Words.WORD, Words.FREQUENCY};
+        int[] toViews = {android.R.id.text1, android.R.id.text2}; // id's of text views
+
         // Set the Adapter to fill the standard two_line_list_item layout with data from the Cursor.
-        SimpleCursorAdapter adapter = null;
+        SimpleCursorAdapter adapter = new SimpleCursorAdapter(this,
+                android.R.layout.two_line_list_item, cursor,
+                fromColumns, toViews, 0);
 
         // Don't forget to attach the adapter to the ListView
+        dictListView.setAdapter(adapter);
     }
 }
